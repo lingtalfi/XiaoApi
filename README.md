@@ -308,6 +308,10 @@ You will end up with the following structure:
 History Log
 ------------------
     
+- 1.1.0 -- 2017-05-20
+
+    - add readOne method to TableCrudObject
+    
 - 1.0.0 -- 2017-05-20
 
     - initial commit

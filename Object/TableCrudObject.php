@@ -15,9 +15,7 @@ abstract class TableCrudObject extends CrudObject
     protected $table;
 
 
-
     abstract protected function getCreateData(array $data);
-
 
 
     public function create(array $data)
@@ -99,6 +97,31 @@ abstract class TableCrudObject extends CrudObject
         QuickPdoStmtHelper::addOrderAndPage($q, $params['order'], $params['page'], $params['nipp']);
 
         return QuickPdo::fetchAll($q, $markers);
+    }
+
+
+    /**
+     * Same as read, but fetches ONE result instead of ALL the result (fetch instead of fetchAll)
+     */
+    public function readOne($params = [])
+    {
+
+        $params = array_replace([
+            "fields" => null,
+            "where" => null,
+        ], (array)$params);
+
+
+        $markers = [];
+        $q = "SELECT ";
+
+
+        QuickPdoStmtHelper::addFields($q, $params['fields']);
+        $q .= ' FROM ' . $this->table;
+        if (null !== $params['where']) {
+            QuickPdoStmtTool::addWhereSubStmt($params['where'], $q, $markers);
+        }
+        return QuickPdo::fetch($q, $markers);
     }
 
     public function update(array $data, array $where)
