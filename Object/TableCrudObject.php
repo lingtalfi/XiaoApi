@@ -4,6 +4,8 @@
 namespace XiaoApi\Object;
 
 
+use QuickPdo\QuickPdoDbOperationTool;
+use QuickPdo\QuickPdoInfoTool;
 use XiaoApi\Helper\QuickPdoStmtHelper\QuickPdoStmtHelper;
 use QuickPdo\QuickPdo;
 use QuickPdo\QuickPdoStmtTool;
@@ -158,10 +160,21 @@ abstract class TableCrudObject extends CrudObject
         $this->hook("deleteAfter", [$this->table, $where]);
     }
 
-    public function deleteAll()
+    public function deleteAll($resetAutoIncrement = true)
     {
-
         QuickPdo::delete($this->table);
+
+        if (true === $resetAutoIncrement) {
+            $p = explode('.', $this->table);
+            if (2 === count($p)) {
+                $db = $p[0];
+                $table = $p[1];
+                if (false !== ($ai = QuickPdoInfoTool::getAutoIncrementedField($table, $db))) {
+                    QuickPdoDbOperationTool::rebaseAutoIncrement($this->table, $ai);
+                }
+            }
+        }
+
         $this->hook("deleteAllAfter", [$this->table]);
     }
 

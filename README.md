@@ -337,6 +337,10 @@ You will end up with the following structure:
 History Log
 ------------------
     
+- 1.4.0 -- 2017-05-20
+
+    - add $resetAutoIncrement parameter to TableCrudObject.deleteAll method
+    
 - 1.3.0 -- 2017-05-20
 
     - add TableCrudObject.deleteAll method
