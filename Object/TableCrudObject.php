@@ -124,6 +124,25 @@ abstract class TableCrudObject extends CrudObject
         return QuickPdo::fetch($q, $markers);
     }
 
+
+    /**
+     * Fetches the value for ONE column of a particular row.
+     *
+     * @param $column , the name of the column
+     * @param array $where , the pdoWhere object, see read method for more info.
+     * @return false|mixed, the value of the column matching the request, or false if an error occurred
+     */
+    public function readColumn($column, array $where = [])
+    {
+        $markers = [];
+        $q = "SELECT $column FROM " . $this->table;
+        QuickPdoStmtTool::addWhereSubStmt($where, $q, $markers);
+        if (false !== ($ret = QuickPdo::fetch($q, $markers))) {
+            return $ret[$column];
+        }
+        return false;
+    }
+
     public function update(array $data, array $where)
     {
         $pdoWhere = QuickPdoStmtHelper::simpleWhereToPdoWhere($where);
