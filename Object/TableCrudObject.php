@@ -158,5 +158,12 @@ abstract class TableCrudObject extends CrudObject
         $this->hook("deleteAfter", [$this->table, $where]);
     }
 
+    public function deleteAll()
+    {
+
+        QuickPdo::delete($this->table);
+        $this->hook("deleteAllAfter", [$this->table]);
+    }
+
 
 }
