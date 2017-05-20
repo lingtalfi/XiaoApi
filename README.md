@@ -156,6 +156,35 @@ a(EkomApi::inst()
 ``` 
  
  
+Using more methods
+=======================
+
+As time pass by, other methods have been added, based on my personal experience.
+ 
+- readOne ( arr:params = []  ): read one row instead of all the rows
+- readColumn ( str:column, arr:where = [] ): read the value of a specific column
+- deleteAll ( ) : powerful method that deletes the whole table 
+ 
+The following example shows them in action:
+ 
+ 
+ 
+```php
+
+a(EkomApi::inst()->lang()->readOne([
+    'fields' => ['id'],
+    'where' => [['iso_code', '=', 'fra']],
+]));
+
+
+$fraId = EkomApi::inst()->lang()->readColumn('id', [['iso_code', '=', 'fra']]);
+
+EkomApi::inst()->backofficeUser()->deleteAll();
+
+``` 
+ 
+ 
+ 
  
 How to use the generators
 ===========
