@@ -1,0 +1,97 @@
+<?php
+
+
+namespace XiaoApi\Api;
+
+
+use XiaoApi\Exception\XiaoApiException;
+use XiaoApi\Object\CrudObject;
+use XiaoApi\Observer\Observer;
+use XiaoApi\Observer\ObserverInterface;
+
+class XiaoApi{
+
+    private static $inst;
+
+    private $objects;
+    private $observer;
+    private $objectNamespace;
+
+
+    protected function __construct()
+    {
+        $this->objects = [];
+        $p = explode('\\', get_called_class());
+        array_pop($p);
+        $this->objectNamespace = implode('\\', $p);
+    }
+
+
+    public static function inst()
+    {
+        if (null === self::$inst) {
+            self::$inst = new static();
+        }
+        return self::$inst;
+    }
+
+    /**
+     * @return ObserverInterface
+     */
+    public function getObserver()
+    {
+        if (null === $this->observer) {
+            $this->observer = new Observer();
+        }
+        return $this->observer;
+    }
+
+
+    //--------------------------------------------
+    //
+    //--------------------------------------------
+    protected function log($type, $message) // override me
+    {
+
+    }
+
+
+    //--------------------------------------------
+    //
+    //--------------------------------------------
+    protected function getObject($objectName)
+    {
+        if (false === array_key_exists($objectName, $this->objects)) {
+            if (false !== ($inst = $this->getObjectInstance($objectName))) {
+                if ($inst instanceof CrudObject) {
+                    $inst->setObserver($this->getObserver());
+                }
+                $this->objects[$objectName] = $inst;
+            } else {
+                $this->error("object instance not found with object name $objectName");
+            }
+        }
+        return $this->objects[$objectName];
+    }
+
+    //--------------------------------------------
+    //
+    //--------------------------------------------
+    private function getObjectInstance($objectName)
+    {
+
+        $class = $this->objectNamespace . '\\Object\\' . ucfirst($objectName);
+        if (class_exists($class)) {
+            return new $class;
+        }
+        return false;
+    }
+
+    private function error($msg)
+    {
+        $this->log("error", $msg);
+        throw new XiaoApiException($msg);
+    }
+
+
+}
