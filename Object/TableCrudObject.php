@@ -11,6 +11,26 @@ use QuickPdo\QuickPdo;
 use QuickPdo\QuickPdoStmtTool;
 
 
+
+/**
+ * The create and update methods basically insert/update a row in the database,
+ * and then trigger a hook, and that's it.
+ *
+ * So, only two actions: insert/update and hook.
+ *
+ * We try to keep it simple like this so that when you create your own CrudObjects,
+ * you can reuse the generated objects create/update methods without to think
+ * too much of the consequences.
+ *
+ * Like, if the create method would do 40 things, you would probably
+ * stay away from using a generated object (which inherits the TableCrudObject)'s create
+ * methods, because you will be afraid of not being able to understand
+ * the whole picture and you would do a mistake.
+ *
+ * So, just two actions is good.
+ *
+ *
+ */
 abstract class TableCrudObject extends CrudObject
 {
 

@@ -337,6 +337,10 @@ You will end up with the following structure:
 History Log
 ------------------
     
+- 1.5.0 -- 2017-05-21
+
+    - add CrudObject::$enableHooks static public property
+    
 - 1.4.0 -- 2017-05-20
 
     - add $resetAutoIncrement parameter to TableCrudObject.deleteAll method

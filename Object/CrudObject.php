@@ -8,6 +8,16 @@ use XiaoApi\Observer\ObserverInterface;
 
 class CrudObject
 {
+    /**
+     * Enable/Disable the hooks.
+     *
+     * When you're creating your own objects,
+     * you sometimes want to re-use other generated (tableCrud) objects,
+     * which by default use hooks.
+     * You can disable those hooks temporarily by using this $enableHooks property.
+     * Don't forget to put it back to true when you're done.
+     */
+    public static $enableHooks = true;
 
     /**
      * @var ObserverInterface
@@ -27,6 +37,8 @@ class CrudObject
 
     public function hook($hookType, $data)
     {
-        $this->observer->hook($hookType, $data);
+        if (true === self::$enableHooks) {
+            $this->observer->hook($hookType, $data);
+        }
     }
 }
