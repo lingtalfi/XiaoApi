@@ -337,6 +337,10 @@ You will end up with the following structure:
 History Log
 ------------------
     
+- 1.5.1 -- 2017-05-21
+
+    - fix DbObjectGenerator, now handles tables with only one auto-incremented column
+    
 - 1.5.0 -- 2017-05-21
 
     - add CrudObject::$enableHooks static public property

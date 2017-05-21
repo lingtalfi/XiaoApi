@@ -70,23 +70,35 @@ class DbObjectGenerator
             $nf = [];
             $sDefaults = '';
             $dPrefix = "\t\t\t";
-            foreach ($types as $column => $type) {
-                if ($ai === $column) {
-                    continue;
-                }
 
-                if (true === $nullables[$column]) {
-                    $sDefaults .= $dPrefix . "'$column' => null," . PHP_EOL;
-                    $nf[] = $column;
-                } else {
-                    switch ($type) {
-                        case 'int':
-                        case 'tinyint':
-                            $sDefaults .= $dPrefix . "'$column' => 0," . PHP_EOL;
-                            break;
-                        default:
-                            $sDefaults .= $dPrefix . "'$column' => ''," . PHP_EOL;
-                            break;
+
+            /**
+             * If your table only contains one column which is an auto-incremented field,
+             * this is a special case, otherwise, it's standard
+             */
+            if (1 === count($types) && $ai === key($types)) {
+                $column = key($types);
+                $sDefaults .= $dPrefix . "'$column' => null," . PHP_EOL;
+            } else {
+
+                foreach ($types as $column => $type) {
+                    if ($ai === $column) {
+                        continue;
+                    }
+
+                    if (true === $nullables[$column]) {
+                        $sDefaults .= $dPrefix . "'$column' => null," . PHP_EOL;
+                        $nf[] = $column;
+                    } else {
+                        switch ($type) {
+                            case 'int':
+                            case 'tinyint':
+                                $sDefaults .= $dPrefix . "'$column' => 0," . PHP_EOL;
+                                break;
+                            default:
+                                $sDefaults .= $dPrefix . "'$column' => ''," . PHP_EOL;
+                                break;
+                        }
                     }
                 }
             }
