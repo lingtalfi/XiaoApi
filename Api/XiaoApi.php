@@ -9,7 +9,8 @@ use XiaoApi\Object\CrudObject;
 use XiaoApi\Observer\Observer;
 use XiaoApi\Observer\ObserverInterface;
 
-class XiaoApi{
+class XiaoApi
+{
 
     private static $inst;
 
@@ -61,17 +62,12 @@ class XiaoApi{
     //--------------------------------------------
     protected function getObject($objectName)
     {
-        if (false === array_key_exists($objectName, $this->objects)) {
-            if (false !== ($inst = $this->getObjectInstance($objectName))) {
-                if ($inst instanceof CrudObject) {
-                    $inst->setObserver($this->getObserver());
-                }
-                $this->objects[$objectName] = $inst;
-            } else {
-                $this->error("object instance not found with object name $objectName");
-            }
-        }
-        return $this->objects[$objectName];
+        return $this->doGetObject($objectName, 'getObjectInstance');
+    }
+
+    protected function getLayer($objectName)
+    {
+        return $this->doGetObject($objectName, 'getLayerInstance');
     }
 
     //--------------------------------------------
@@ -79,8 +75,16 @@ class XiaoApi{
     //--------------------------------------------
     private function getObjectInstance($objectName)
     {
-
         $class = $this->objectNamespace . '\\Object\\' . ucfirst($objectName);
+        if (class_exists($class)) {
+            return new $class;
+        }
+        return false;
+    }
+
+    private function getLayerInstance($objectName)
+    {
+        $class = $this->objectNamespace . '\\Layer\\' . ucfirst($objectName);
         if (class_exists($class)) {
             return new $class;
         }
@@ -93,5 +97,19 @@ class XiaoApi{
         throw new XiaoApiException($msg);
     }
 
+    private function doGetObject($objectName, $method)
+    {
+        if (false === array_key_exists($objectName, $this->objects)) {
+            if (false !== ($inst = $this->$method($objectName))) {
+                if ($inst instanceof CrudObject) {
+                    $inst->setObserver($this->getObserver());
+                }
+                $this->objects[$objectName] = $inst;
+            } else {
+                $this->error("object instance not found with object name $objectName");
+            }
+        }
+        return $this->objects[$objectName];
+    }
 
 }

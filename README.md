@@ -186,6 +186,7 @@ EkomApi::inst()->backofficeUser()->deleteAll();
  
  
  
+ 
 How to use the generators
 ===========
 
@@ -332,10 +333,49 @@ You will end up with the following structure:
     
   
   
+
+Using Layers 
+=======================
+
+So, if you use the generator, you will probably end up with a structure like this:
+ 
+```txt
+- $targetDirectory/GeneratedObject/         // contains your generated objects             
+- $targetDirectory/Object/                  // contains your custom objects
+```
+
+But Objects are classes that supposedly deal only with ONE object.
+
+What if you want that your api returns you a class that deals with multiple tables/objects at once?
+
+Meet the layer concept.
+
+We define a layer as a class that deals with multiple objects.
+It's an organizational tool.
+
+There is a getLayer method at the XiaoApi level that you can leverage to implement a structure like this:
+ 
+```txt
+- $targetDirectory/GeneratedObject/         // contains your generated objects             
+- $targetDirectory/Object/                  // contains your custom objects
+- $targetDirectory/Layer/                  // contains your layer objects
+```
+
+
+There is no generator for layers, layers are classes that you create manually, at your own pace,
+and the generators will never delete or even touch them.
+
+
+     
+ 
   
 
 History Log
 ------------------
+    
+- 1.6.0 -- 2017-05-22
+
+    - add XiaoApi->getLayer method, implementation of the concept of layers
     
 - 1.5.3 -- 2017-05-22
 
