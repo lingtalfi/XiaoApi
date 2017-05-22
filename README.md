@@ -337,6 +337,10 @@ You will end up with the following structure:
 History Log
 ------------------
     
+- 1.5.3 -- 2017-05-22
+
+    - fix DbApiGenerator, add a carriage return between methods for better readibility
+    
 - 1.5.2 -- 2017-05-21
 
     - fix GeneralHelper::tableNameToClassName, now also replace prefixes in hasManyToMany tables

@@ -83,6 +83,7 @@ class DbApiGenerator
             $ClassName = GeneralHelper::tableNameToClassName($table, $this->tablePrefix);
             $className = lcfirst($ClassName);
 
+            $s .= PHP_EOL;
             $s .= <<<EEE
     /**
      * @return $ClassName
@@ -92,6 +93,8 @@ class DbApiGenerator
         return \$this->getObject('$className');
     }
 EEE;
+
+
             $uses[] = $this->namespace . '\Object\\' . $ClassName;
 
         }
