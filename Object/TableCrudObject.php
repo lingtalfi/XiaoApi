@@ -11,7 +11,6 @@ use QuickPdo\QuickPdo;
 use QuickPdo\QuickPdoStmtTool;
 
 
-
 /**
  * The create and update methods basically insert/update a row in the database,
  * and then trigger a hook, and that's it.
@@ -189,9 +188,12 @@ abstract class TableCrudObject extends CrudObject
             if (2 === count($p)) {
                 $db = $p[0];
                 $table = $p[1];
-                if (false !== ($ai = QuickPdoInfoTool::getAutoIncrementedField($table, $db))) {
-                    QuickPdoDbOperationTool::rebaseAutoIncrement($this->table, $ai);
-                }
+            } else {
+                $table = $p[0];
+                $db = null;
+            }
+            if (false !== ($ai = QuickPdoInfoTool::getAutoIncrementedField($table, $db))) {
+                QuickPdoDbOperationTool::rebaseAutoIncrement($this->table, $ai);
             }
         }
 
