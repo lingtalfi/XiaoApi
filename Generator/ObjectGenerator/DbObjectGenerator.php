@@ -15,13 +15,24 @@ class DbObjectGenerator
     private $namespace;
     private $targetDirectory;
     private $tablePrefix;
+    private $useDbPrefix;
 
+
+    public function __construct()
+    {
+        $this->useDbPrefix = true;
+    }
 
     public static function create()
     {
         return new static();
     }
 
+    public function setUseDbPrefix($useDbPrefix)
+    {
+        $this->useDbPrefix = $useDbPrefix;
+        return $this;
+    }
 
     public function setNamespace($namespace)
     {
@@ -119,16 +130,20 @@ EEE;
             $theClassName = "Generated" . $ClassName;
             $sArr = '[' . PHP_EOL . $sDefaults . "\t\t" . ']';
 
+
+            $theTable = (true === $this->useDbPrefix) ? $fullTable : $table;
+
+
             $content = str_replace([
                 'Module\Example\Api',
                 'GeneratedExampleObject',
-                'fullTable',
+                'theTable',
                 '$array',
                 '//-nullables',
             ], [
                 $this->namespace,
                 $theClassName,
-                $fullTable,
+                $theTable,
                 $sArr,
                 $s,
             ], $f);

@@ -19,7 +19,7 @@ class GeneratedExampleObject extends TableCrudObject
     public function __construct()
     {
         parent::__construct();
-        $this->table = "fullTable";
+        $this->table = "theTable";
     }
 
 

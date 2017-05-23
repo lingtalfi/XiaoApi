@@ -251,6 +251,7 @@ DbApiGenerator::create()
 
 
 DbObjectGenerator::create()
+    ->setUseDbPrefix(false) 
     ->setTablePrefix($tablePrefix)
     ->setNamespace($nameSpace)
     ->setTargetDirectory($targetDir)
@@ -372,6 +373,10 @@ and the generators will never delete or even touch them.
 
 History Log
 ------------------
+    
+- 1.7.0 -- 2017-05-23
+
+    - add DbObjectGenerator->setUseDbPrefix method 
     
 - 1.6.0 -- 2017-05-22
 
