@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.9.0 -- 2017-05-24
+
+    - add TableCrudObject.readKeyValues method  
+    
 - 1.8.0 -- 2017-05-24
 
     - add TableCrudObject.readValues method  

@@ -154,6 +154,32 @@ abstract class TableCrudObject extends CrudObject
     }
 
 
+
+    /**
+     *
+     * Like readValues, but return an array of key => value
+     *
+     */
+    public function readKeyValues($keyColumn, $valueColumn, $params = [])
+    {
+        $params = array_replace([
+            "where" => null,
+            "order" => null,
+            "nipp" => 20,
+            "page" => 1,
+        ], (array)$params);
+
+        $markers = [];
+        $q = "SELECT $keyColumn, $valueColumn FROM " . $this->table;
+        if (null !== $params['where']) {
+            QuickPdoStmtTool::addWhereSubStmt($params['where'], $q, $markers);
+        }
+        QuickPdoStmtHelper::addOrderAndPage($q, $params['order'], $params['page'], $params['nipp']);
+
+        return QuickPdo::fetchAll($q, $markers, \PDO::FETCH_COLUMN|\PDO::FETCH_UNIQUE);
+    }
+
+
     /**
      * Same as read, but fetches ONE result instead of ALL the result (fetch instead of fetchAll)
      */
