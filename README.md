@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.8.0 -- 2017-05-24
+
+    - add TableCrudObject.readValues method  
+    
 - 1.7.1 -- 2017-05-23
 
     - fix deleteAll, allow un-prefixed tables to have their auto-increment reset  

@@ -122,6 +122,39 @@ abstract class TableCrudObject extends CrudObject
 
 
     /**
+     *
+     * Like read, but:
+     *
+     * - returns a one dimensional array, the keys being natural (set by php), and the values
+     *          being the values of the given $valueColumn.
+     * - the params does not have the fields key
+     *
+     *
+     * @param $valueColumn
+     * @param array $params
+     * @return array|false
+     */
+    public function readValues($valueColumn, $params = [])
+    {
+        $params = array_replace([
+            "where" => null,
+            "order" => null,
+            "nipp" => 20,
+            "page" => 1,
+        ], (array)$params);
+
+        $markers = [];
+        $q = "SELECT $valueColumn FROM " . $this->table;
+        if (null !== $params['where']) {
+            QuickPdoStmtTool::addWhereSubStmt($params['where'], $q, $markers);
+        }
+        QuickPdoStmtHelper::addOrderAndPage($q, $params['order'], $params['page'], $params['nipp']);
+
+        return QuickPdo::fetchAll($q, $markers, \PDO::FETCH_COLUMN);
+    }
+
+
+    /**
      * Same as read, but fetches ONE result instead of ALL the result (fetch instead of fetchAll)
      */
     public function readOne($params = [])
