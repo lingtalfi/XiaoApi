@@ -223,6 +223,10 @@ abstract class TableCrudObject extends CrudObject
         return false;
     }
 
+
+    /**
+     * @param array $where, simple where array (key => value)
+     */
     public function update(array $data, array $where)
     {
         $pdoWhere = QuickPdoStmtHelper::simpleWhereToPdoWhere($where);
@@ -231,6 +235,9 @@ abstract class TableCrudObject extends CrudObject
     }
 
 
+    /**
+     * @param array $where, simple where array (key => value)
+     */
     public function delete(array $where)
     {
         $pdoWhere = QuickPdoStmtHelper::simpleWhereToPdoWhere($where);
