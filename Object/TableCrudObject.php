@@ -101,7 +101,7 @@ abstract class TableCrudObject extends CrudObject
             "fields" => null,
             "where" => null,
             "order" => null,
-            "nipp" => 20,
+            "nipp" => null,
             "page" => 1,
         ], (array)$params);
 
@@ -139,7 +139,7 @@ abstract class TableCrudObject extends CrudObject
         $params = array_replace([
             "where" => null,
             "order" => null,
-            "nipp" => 20,
+            "nipp" => null,
             "page" => 1,
         ], (array)$params);
 
@@ -165,7 +165,7 @@ abstract class TableCrudObject extends CrudObject
         $params = array_replace([
             "where" => null,
             "order" => null,
-            "nipp" => 20,
+            "nipp" => null,
             "page" => 1,
         ], (array)$params);
 

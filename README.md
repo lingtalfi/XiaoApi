@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.10.0 -- 2017-06-08
+
+    - change read, readValues and readKeyValues nipp default to null  
+    
 - 1.9.0 -- 2017-05-24
 
     - add TableCrudObject.readKeyValues method  
