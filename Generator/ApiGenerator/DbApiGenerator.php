@@ -79,6 +79,13 @@ class DbApiGenerator
         $s = '';
         foreach ($tables as $table) {
 
+            /**
+             * ...Only if they start with the chosen prefix
+             */
+            if (0 !== strpos($table, $this->tablePrefix)) {
+                continue;
+            }
+
 
             $ClassName = GeneralHelper::tableNameToClassName($table, $this->tablePrefix);
             $className = lcfirst($ClassName);

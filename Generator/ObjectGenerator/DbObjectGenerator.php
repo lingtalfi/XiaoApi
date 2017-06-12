@@ -63,7 +63,6 @@ class DbObjectGenerator
         $tables = QuickPdoInfoTool::getTables($db);
         $f = file_get_contents(__DIR__ . "/assets/GeneratedExampleObject.tpl.php");
 
-
         $s = '';
         foreach ($tables as $table) {
 
@@ -71,6 +70,14 @@ class DbObjectGenerator
             //--------------------------------------------
             // GENERATING GENERATED CLASSES
             //--------------------------------------------
+            /**
+             * ...Only if they start with the chosen prefix
+             */
+            if (0 !== strpos($table, $this->tablePrefix)) {
+                continue;
+            }
+
+
             $ClassName = GeneralHelper::tableNameToClassName($table, $this->tablePrefix);
 
             $fullTable = $db . "." . $table;
