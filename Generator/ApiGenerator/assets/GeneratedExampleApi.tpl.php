@@ -19,5 +19,16 @@ use XiaoApi\Api\XiaoApi;
  */
 class GeneratedExampleApi extends XiaoApi
 {
+    private static $inst;
+
+    public static function inst()
+    {
+        if (null === self::$inst) {
+            self::$inst = new static();
+        }
+        return self::$inst;
+    }
+
+
     //-methods
 }

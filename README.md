@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.12.0 -- 2017-06-12
+
+    - the inst method is moved from XiaoApi to the generated api class  
+    
 - 1.11.0 -- 2017-06-12
 
     - now generates objects only for tables starting with table prefix  

@@ -11,9 +11,6 @@ use XiaoApi\Observer\ObserverInterface;
 
 class XiaoApi
 {
-
-    private static $inst;
-
     private $objects;
     private $observer;
     private $objectNamespace;
@@ -28,13 +25,6 @@ class XiaoApi
     }
 
 
-    public static function inst()
-    {
-        if (null === self::$inst) {
-            self::$inst = new static();
-        }
-        return self::$inst;
-    }
 
     /**
      * @return ObserverInterface
