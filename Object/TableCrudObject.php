@@ -39,10 +39,11 @@ abstract class TableCrudObject extends CrudObject
     abstract protected function getCreateData(array $data);
 
 
-    public function create(array $data)
+    public function create(array $data, $ifNotExistOnly = false)
     {
         $data = $this->getCreateData($data);
-        $lastInsertId = QuickPdo::insert($this->table, $data);
+        $keyWord = (false === $ifNotExistOnly) ? "" : 'ignore';
+        $lastInsertId = QuickPdo::insert($this->table, $data, $keyWord);
         $this->hook("createAfter", [$this->table, $lastInsertId, $data]);
         return $lastInsertId;
     }
@@ -154,7 +155,6 @@ abstract class TableCrudObject extends CrudObject
     }
 
 
-
     /**
      *
      * Like readValues, but return an array of key => value
@@ -176,7 +176,7 @@ abstract class TableCrudObject extends CrudObject
         }
         QuickPdoStmtHelper::addOrderAndPage($q, $params['order'], $params['page'], $params['nipp']);
 
-        return QuickPdo::fetchAll($q, $markers, \PDO::FETCH_COLUMN|\PDO::FETCH_UNIQUE);
+        return QuickPdo::fetchAll($q, $markers, \PDO::FETCH_COLUMN | \PDO::FETCH_UNIQUE);
     }
 
 
@@ -225,7 +225,7 @@ abstract class TableCrudObject extends CrudObject
 
 
     /**
-     * @param array $where, simple where array (key => value)
+     * @param array $where , simple where array (key => value)
      */
     public function update(array $data, array $where)
     {
@@ -236,7 +236,7 @@ abstract class TableCrudObject extends CrudObject
 
 
     /**
-     * @param array $where, simple where array (key => value)
+     * @param array $where , simple where array (key => value)
      */
     public function delete(array $where)
     {

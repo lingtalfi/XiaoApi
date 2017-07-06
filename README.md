@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.13.0 -- 2017-07-06
+
+    - add TableCrudObject.create $ifNotExistOnly argument
+    
 - 1.12.0 -- 2017-06-12
 
     - the inst method is moved from XiaoApi to the generated api class  
