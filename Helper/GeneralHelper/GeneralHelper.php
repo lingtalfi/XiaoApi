@@ -10,7 +10,7 @@ class GeneralHelper
     public static function tableNameToClassName($table, $tablePrefix)
     {
         if (null !== $tablePrefix) {
-            $table = str_replace($tablePrefix, '', $table);
+            $table = substr($table, strlen($tablePrefix));
         }
         $p = explode('_', $table);
         return implode('', array_map(function ($v) {
