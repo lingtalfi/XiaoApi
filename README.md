@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.14.0 -- 2017-07-23
+
+    - add TableCrudObject.drop method
+    
 - 1.13.0 -- 2017-07-06
 
     - add TableCrudObject.create $ifNotExistOnly argument

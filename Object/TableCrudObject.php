@@ -267,4 +267,9 @@ abstract class TableCrudObject extends CrudObject
     }
 
 
+    public function drop()
+    {
+        return QuickPdo::freeExec("drop table if exists " . $this->table);
+    }
+
 }
