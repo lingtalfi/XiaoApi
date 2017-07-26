@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.16.0 -- 2017-07-26
+
+    - GeneratedExampleObject.getCreateData now filters undesirable values out of the box
+    
 - 1.15.0 -- 2017-07-23
 
     - change GeneralHelper.tableNameToClassName's internal

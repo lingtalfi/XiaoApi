@@ -28,10 +28,11 @@ class GeneratedExampleObject extends TableCrudObject
     //--------------------------------------------
     protected function getCreateData(array $data)
     {
-        $ret = array_replace($array, $data);
-
+        $base = $array;
+        $ret = array_replace($base, array_intersect_key($data, $base));
 
 //-nullables
+
         return $ret;
     }
 
