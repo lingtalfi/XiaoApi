@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.17.0 -- 2017-07-27
+
+    - GeneratedExampleObject.update method now filters undesirable values
+    
 - 1.16.0 -- 2017-07-26
 
     - GeneratedExampleObject.getCreateData now filters undesirable values out of the box

@@ -229,6 +229,12 @@ abstract class TableCrudObject extends CrudObject
      */
     public function update(array $data, array $where)
     {
+        $createData = $this->getCreateData($data);
+
+        // allowing devs to put more data in data, while ensuring only relevant data are being applied
+        $data = array_intersect_key($data, $createData);
+
+
         $pdoWhere = QuickPdoStmtHelper::simpleWhereToPdoWhere($where);
         QuickPdo::update($this->table, $data, $pdoWhere);
         $this->hook("updateAfter", [$this->table, $data, $where]);
