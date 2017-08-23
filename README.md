@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.17.1 -- 2017-08-23
+
+    - Fix XiaoApiException file name
+    
 - 1.17.0 -- 2017-07-27
 
     - GeneratedExampleObject.update method now filters undesirable values
