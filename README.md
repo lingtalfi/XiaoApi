@@ -374,6 +374,11 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.18.0 -- 2017-08-31
+
+    - now DbObjectGenerator generates primaryKey for all objects
+    - add TableCrudObject.push method
+    
 - 1.17.1 -- 2017-08-23
 
     - Fix XiaoApiException file name

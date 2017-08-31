@@ -34,6 +34,14 @@ abstract class TableCrudObject extends CrudObject
 {
 
     protected $table;
+    /**
+     * array containing the primary key.
+     * For instance:
+     *      - [id]
+     *      - [email, shop_id]
+     *      - ...
+     */
+    protected $primaryKey;
 
 
     abstract protected function getCreateData(array $data);
@@ -46,6 +54,68 @@ abstract class TableCrudObject extends CrudObject
         $lastInsertId = QuickPdo::insert($this->table, $data, $keyWord);
         $this->hook("createAfter", [$this->table, $lastInsertId, $data]);
         return $lastInsertId;
+    }
+
+
+    /**
+     * Mix of create and update method, and tries to return the primary key.
+     *
+     * Check whether or not the record exists:
+     *      - if it does exist, update the existing record using the update method
+     *      - if it does not exist, insert the record using the create method
+     *
+     *
+     * @param $whereValues , simple map containing the key and values to search with.
+     *              It generally contains either the auto-incremented field, or
+     *              some unique indexes. For instance:
+     *                  - [id => 6]
+     *                  - [email => johndoe@me.com]
+     *                  - [email => johndoe@me.com, shop_id => 9]
+     *
+     *
+     * @data array, the values to insert/update
+     *
+     * @return mixed:
+     *          if create was used:
+     *                  return the result of create
+     *          if update was used:
+     *                  - if the primary key is composed of more than one element (i.e. [email, shop_id]),
+     *                          return the primary key array
+     *                  - if the primary key is composed only of one element (i.e. [id]),
+     *                          the primary key element is returned directly
+     *
+     *
+     * Note: this method is not sql injection safe, because it assumes that the whereValues
+     * keys are safe.
+     *
+     */
+    public function push(array $whereValues, array $data)
+    {
+        $searchKeys = array_keys($whereValues);
+        $searchKeys = array_merge($searchKeys, $this->primaryKey);
+
+
+        $searchKeys = array_map(function ($v) {
+            return '`' . $v . '`';
+        }, $searchKeys);
+
+
+        $pdoWhere = QuickPdoStmtHelper::simpleWhereToPdoWhere($whereValues);
+        $q = "select " . implode(',', $searchKeys) . " from " . $this->table;
+        $markers = [];
+        QuickPdoStmtTool::addWhereSubStmt($pdoWhere, $q, $markers);
+        $row = QuickPdo::fetch($q, $markers);
+
+        if (false === $row) {
+            return $this->create($data);
+        } else {
+            $this->update($data, $whereValues);
+            $ret = array_intersect_key($row, array_flip($this->primaryKey));
+            if (1 === count($this->primaryKey)) {
+                return $ret[$this->primaryKey];
+            }
+            return $ret;
+        }
     }
 
 

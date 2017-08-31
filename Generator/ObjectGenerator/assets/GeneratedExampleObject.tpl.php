@@ -20,6 +20,7 @@ class GeneratedExampleObject extends TableCrudObject
     {
         parent::__construct();
         $this->table = "theTable";
+        $this->primaryKey = [//primaryKey];
     }
 
 

@@ -85,6 +85,9 @@ class DbObjectGenerator
             $nullables = QuickPdoInfoTool::getColumnNullabilities($fullTable);
             $types = QuickPdoInfoTool::getColumnDataTypes($fullTable);
             $ai = QuickPdoInfoTool::getAutoIncrementedField($table, $db);
+            $primaryKey = QuickPdoInfoTool::getPrimaryKey($table, $db);
+
+
             $nf = [];
             $sDefaults = '';
             $dPrefix = "\t\t\t";
@@ -139,18 +142,28 @@ EEE;
 
 
             $theTable = (true === $this->useDbPrefix) ? $fullTable : $table;
+            $sPrimaryKeys = '';
+            $_c = 0;
+            foreach ($primaryKey as $key) {
+                if (0 !== $_c++) {
+                    $sPrimaryKeys .= ', ';
+                }
+                $sPrimaryKeys .= "'$key'";
+            }
 
 
             $content = str_replace([
                 'Module\Example\Api',
                 'GeneratedExampleObject',
                 'theTable',
+                '//primaryKey',
                 '$array',
                 '//-nullables',
             ], [
                 $this->namespace,
                 $theClassName,
                 $theTable,
+                $sPrimaryKeys,
                 $sArr,
                 $s,
             ], $f);
