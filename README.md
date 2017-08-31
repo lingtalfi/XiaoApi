@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.18.1 -- 2017-08-31
+
+    - fix TableCrudObject.push method returning wrong output with primaryKeys of length 1
+    
 - 1.18.0 -- 2017-08-31
 
     - now DbObjectGenerator generates primaryKey for all objects

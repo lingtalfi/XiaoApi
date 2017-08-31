@@ -112,7 +112,7 @@ abstract class TableCrudObject extends CrudObject
             $this->update($data, $whereValues);
             $ret = array_intersect_key($row, array_flip($this->primaryKey));
             if (1 === count($this->primaryKey)) {
-                return $ret[$this->primaryKey];
+                return current($ret);
             }
             return $ret;
         }
