@@ -100,7 +100,7 @@ abstract class TableCrudObject extends CrudObject
         }, $searchKeys);
 
 
-        $pdoWhere = QuickPdoStmtHelper::simpleWhereToPdoWhere($whereValues);
+        $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($whereValues);
         $q = "select " . implode(',', $searchKeys) . " from " . $this->table;
         $markers = [];
         QuickPdoStmtTool::addWhereSubStmt($pdoWhere, $q, $markers);
@@ -305,7 +305,7 @@ abstract class TableCrudObject extends CrudObject
         $data = array_intersect_key($data, $createData);
 
 
-        $pdoWhere = QuickPdoStmtHelper::simpleWhereToPdoWhere($where);
+        $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
         QuickPdo::update($this->table, $data, $pdoWhere);
         $this->hook("updateAfter", [$this->table, $data, $where]);
     }
@@ -316,7 +316,7 @@ abstract class TableCrudObject extends CrudObject
      */
     public function delete(array $where)
     {
-        $pdoWhere = QuickPdoStmtHelper::simpleWhereToPdoWhere($where);
+        $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
         QuickPdo::delete($this->table, $pdoWhere);
         $this->hook("deleteAfter", [$this->table, $where]);
     }

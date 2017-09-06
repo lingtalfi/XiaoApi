@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.18.2 -- 2017-09-06
+
+    - moved QuickPdoStmtHelper.simpleWhereToPdoWhere to QuickPdoStmtTool.simpleWhereToPdoWhere
+    
 - 1.18.1 -- 2017-08-31
 
     - fix TableCrudObject.push method returning wrong output with primaryKeys of length 1

@@ -60,12 +60,4 @@ class QuickPdoStmtHelper
         }
     }
 
-    public static function simpleWhereToPdoWhere(array $where)
-    {
-        $ret = [];
-        foreach ($where as $k => $v) {
-            $ret[] = [$k, '=', $v];
-        }
-        return $ret;
-    }
 }
