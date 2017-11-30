@@ -86,7 +86,6 @@ class DbApiGenerator
                 continue;
             }
 
-
             $ClassName = GeneralHelper::tableNameToClassName($table, $this->tablePrefix);
             $className = lcfirst($ClassName);
 

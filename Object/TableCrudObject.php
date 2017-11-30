@@ -47,6 +47,12 @@ abstract class TableCrudObject extends CrudObject
     abstract protected function getCreateData(array $data);
 
 
+    public static function getDefaults(array $unsafe = [])
+    {
+        $o = new static();
+        return $o->getCreateData($unsafe);
+    }
+
     public function create(array $data, $ifNotExistOnly = false)
     {
         $data = $this->getCreateData($data);
