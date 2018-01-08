@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.20.0 -- 2018-01-08
+
+    - DbObjectGenerator: now auto-incremented fields have a default value set to null
+    
 - 1.19.0 -- 2017-11-30
 
     - add TableCrudObject::getDefaults method
