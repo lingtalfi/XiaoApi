@@ -37,7 +37,7 @@ class CrudObject
 
     public function hook($hookType, $data)
     {
-        if (true === self::$enableHooks) {
+        if (true === self::$enableHooks && null !== $this->observer) {
             $this->observer->hook($hookType, $data);
         }
     }
