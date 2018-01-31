@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.21.0 -- 2018-01-31
+
+    - add CrudObject::getInst method
+    
 - 1.20.0 -- 2018-01-08
 
     - DbObjectGenerator: now auto-incremented fields have a default value set to null

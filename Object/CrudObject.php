@@ -41,4 +41,9 @@ class CrudObject
             $this->observer->hook($hookType, $data);
         }
     }
+
+    public static function getInst()
+    {
+        return new static();
+    }
 }
