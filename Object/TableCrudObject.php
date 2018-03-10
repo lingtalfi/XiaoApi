@@ -53,11 +53,11 @@ abstract class TableCrudObject extends CrudObject
         return $o->getCreateData($unsafe);
     }
 
-    public function create(array $data, $ifNotExistOnly = false)
+    public function create(array $data, $ifNotExistOnly = false, $returnRic = false)
     {
         $data = $this->getCreateData($data);
         $keyWord = (false === $ifNotExistOnly) ? "" : 'ignore';
-        $lastInsertId = QuickPdo::insert($this->table, $data, $keyWord);
+        $lastInsertId = QuickPdo::insert($this->table, $data, $keyWord, $returnRic);
         $this->hook("createAfter", [$this->table, $lastInsertId, $data]);
         return $lastInsertId;
     }

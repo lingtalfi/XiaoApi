@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 1.22.0 -- 2018-03-10
+
+    - add TableCrudObject->create returnRic argument 
+    
 - 1.21.1 -- 2018-01-31
 
     - fix CrudObject hook method complaining about observer not being set 
