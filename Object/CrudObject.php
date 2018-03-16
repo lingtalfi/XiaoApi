@@ -4,46 +4,34 @@
 namespace XiaoApi\Object;
 
 
-use XiaoApi\Observer\ObserverInterface;
+use XiaoApi\Observer\Observer;
 
 class CrudObject
 {
-    /**
-     * Enable/Disable the hooks.
-     *
-     * When you're creating your own objects,
-     * you sometimes want to re-use other generated (tableCrud) objects,
-     * which by default use hooks.
-     * You can disable those hooks temporarily by using this $enableHooks property.
-     * Don't forget to put it back to true when you're done.
-     */
-    public static $enableHooks = true;
-
-    /**
-     * @var ObserverInterface
-     */
-    private $observer;
-
     public function __construct()
     {
-        $this->observer = null;
-    }
-
-    public function setObserver(ObserverInterface $observer)
-    {
-        $this->observer = $observer;
-        return $this;
-    }
-
-    public function hook($hookType, $data)
-    {
-        if (true === self::$enableHooks && null !== $this->observer) {
-            $this->observer->hook($hookType, $data);
-        }
+        // I'm a crud object
     }
 
     public static function getInst()
     {
         return new static();
     }
+
+
+    //--------------------------------------------
+    //
+    //--------------------------------------------
+    public function trigger($eventName)
+    {
+        call_user_func_array([Observer::inst(), "trigger"], func_get_args());
+        return $this;
+    }
+
+    public function addListener($eventName, callable $listener)
+    {
+        Observer::inst()->addListener($eventName, $listener);
+        return $this;
+    }
+
 }

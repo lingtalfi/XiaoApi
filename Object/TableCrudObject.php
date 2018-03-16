@@ -58,8 +58,29 @@ abstract class TableCrudObject extends CrudObject
         $data = $this->getCreateData($data);
         $keyWord = (false === $ifNotExistOnly) ? "" : 'ignore';
         $lastInsertId = QuickPdo::insert($this->table, $data, $keyWord, $returnRic);
-        $this->hook("createAfter", [$this->table, $lastInsertId, $data]);
+        $this->trigger("createAfter", $this->table, $data, $lastInsertId);
         return $lastInsertId;
+    }
+
+
+    /**
+     * @param array $where , simple where array (key => value)
+     */
+    public function update(array $data, array $where)
+    {
+        $createData = $this->getCreateData($data);
+
+        // allowing devs to put more data in data, while ensuring only relevant data are being applied
+        $data = array_intersect_key($data, $createData);
+
+
+        // removing primary keys for free
+        $data = array_diff_key($data, array_flip($this->primaryKey));
+
+
+        $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
+        QuickPdo::update($this->table, $data, $pdoWhere);
+        $this->trigger("updateAfter", $this->table, $data, $where);
     }
 
 
@@ -126,6 +147,42 @@ abstract class TableCrudObject extends CrudObject
         }
     }
 
+    /**
+     * @param array $where , simple where array (key => value)
+     */
+    public function delete(array $where)
+    {
+        $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
+        QuickPdo::delete($this->table, $pdoWhere);
+        $this->trigger("deleteAfter", $this->table, $where);
+    }
+
+    public function deleteAll($resetAutoIncrement = true)
+    {
+        QuickPdo::delete($this->table);
+
+        if (true === $resetAutoIncrement) {
+            $p = explode('.', $this->table);
+            if (2 === count($p)) {
+                $db = $p[0];
+                $table = $p[1];
+            } else {
+                $table = $p[0];
+                $db = null;
+            }
+            if (false !== ($ai = QuickPdoInfoTool::getAutoIncrementedField($table, $db))) {
+                QuickPdoDbOperationTool::rebaseAutoIncrement($this->table, $ai);
+            }
+        }
+
+        $this->trigger("deleteAllAfter", $this->table);
+    }
+
+
+
+    //--------------------------------------------
+    //
+    //--------------------------------------------
 
     /**
      * IMPORTANT NOTE:
@@ -299,55 +356,6 @@ abstract class TableCrudObject extends CrudObject
             return $ret[$column];
         }
         return false;
-    }
-
-
-    /**
-     * @param array $where , simple where array (key => value)
-     */
-    public function update(array $data, array $where)
-    {
-        $createData = $this->getCreateData($data);
-
-        // allowing devs to put more data in data, while ensuring only relevant data are being applied
-        $data = array_intersect_key($data, $createData);
-
-
-        $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
-        QuickPdo::update($this->table, $data, $pdoWhere);
-        $this->hook("updateAfter", [$this->table, $data, $where]);
-    }
-
-
-    /**
-     * @param array $where , simple where array (key => value)
-     */
-    public function delete(array $where)
-    {
-        $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
-        QuickPdo::delete($this->table, $pdoWhere);
-        $this->hook("deleteAfter", [$this->table, $where]);
-    }
-
-    public function deleteAll($resetAutoIncrement = true)
-    {
-        QuickPdo::delete($this->table);
-
-        if (true === $resetAutoIncrement) {
-            $p = explode('.', $this->table);
-            if (2 === count($p)) {
-                $db = $p[0];
-                $table = $p[1];
-            } else {
-                $table = $p[0];
-                $db = null;
-            }
-            if (false !== ($ai = QuickPdoInfoTool::getAutoIncrementedField($table, $db))) {
-                QuickPdoDbOperationTool::rebaseAutoIncrement($this->table, $ai);
-            }
-        }
-
-        $this->hook("deleteAllAfter", [$this->table]);
     }
 
 

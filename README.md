@@ -374,6 +374,11 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 2.0.0 -- 2018-03-16
+
+    - Change the Observer system 
+    - the TableCrudObject.update method now automatically removes primary keys (convenient when you paste all your form data: don't need to manually filter them...) 
+    
 - 1.22.0 -- 2018-03-10
 
     - add TableCrudObject->create returnRic argument 

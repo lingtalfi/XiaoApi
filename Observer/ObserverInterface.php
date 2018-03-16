@@ -4,15 +4,18 @@
 namespace XiaoApi\Observer;
 
 
-use XiaoApi\Observer\Listener\ListenerInterface;
-
 interface ObserverInterface
 {
-    public function hook($hookType, $data);
+    /**
+     * @param $eventName
+     * @param ... all subsequent params are also (the eventName is the first argument) passed as args to the listeners
+     * @return mixed
+     */
+    public function trigger($eventName);
 
     /**
-     * @param $hookType, string|array, the hook type(s) the listener wants to listen to
-     * @param ListenerInterface $listener
+     * @param $eventName , string|array, the hook type(s) the listener wants to listen to
+     * @param $listener , callable. It receives the eventName as first parameter, and the other args passed via the trigger method call
      */
-    public function addListener($hookType, ListenerInterface $listener);
+    public function addListener($eventName, callable $listener);
 }

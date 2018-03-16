@@ -4,39 +4,54 @@
 namespace XiaoApi\Observer;
 
 
-use XiaoApi\Observer\Listener\ListenerInterface;
-
-
+/**
+ * Note: this is a singleton, so that we can be available from anywhere.
+ *
+ * I expect to be used from two different locations:
+ *
+ * - from objects themselves, which is convenient for small db fixes (like for instance if you need to handle conflict
+ * of the default_image column on a table, which only ONE row should have...)
+ * - from external parts, like for instance a cache system who wants to listen to certain events (or we could also
+ * use the objects, but anyway the more flexible the better right?)
+ *
+ */
 class Observer implements ObserverInterface
 {
 
+    private static $inst;
     private $listeners;
 
-    public function __construct()
+    private function __construct()
     {
         $this->listeners = [];
     }
 
-    public function hook($hookType, $data)
+    public static function inst()
     {
-        if (array_key_exists($hookType, $this->listeners)) {
-            foreach ($this->listeners[$hookType] as $listener) {
-                /**
-                 * @var $listener ListenerInterface
-                 */
-                $listener->listen($data);
+        if (null === self::$inst) {
+            self::$inst = new self();
+        }
+        return self::$inst;
+    }
+
+    public function trigger($eventName)
+    {
+        $args = func_get_args();
+        if (array_key_exists($eventName, $this->listeners)) {
+            foreach ($this->listeners[$eventName] as $listener) {
+                call_user_func_array($listener, $args);
             }
         }
     }
 
-    public function addListener($hookType, ListenerInterface $listener)
+    public function addListener($eventName, callable $listener)
     {
-        if (is_array($hookType)) {
-            foreach ($hookType as $type) {
+        if (is_array($eventName)) {
+            foreach ($eventName as $type) {
                 $this->listeners[$type][] = $listener;
             }
         } else {
-            $this->listeners[$hookType][] = $listener;
+            $this->listeners[$eventName][] = $listener;
         }
     }
 }
