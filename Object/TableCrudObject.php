@@ -153,6 +153,7 @@ abstract class TableCrudObject extends CrudObject
     public function delete(array $where)
     {
         $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
+        $this->trigger("deleteBefore", $this->table, $where);
         QuickPdo::delete($this->table, $pdoWhere);
         $this->trigger("deleteAfter", $this->table, $where);
     }

@@ -32,7 +32,7 @@ class XiaoApi
     public function getObserver()
     {
         if (null === $this->observer) {
-            $this->observer = new Observer();
+            $this->observer = Observer::inst();
         }
         return $this->observer;
     }
