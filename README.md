@@ -374,6 +374,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 2.0.1 -- 2018-03-17
+
+    - fix TableCrudObject.update method overriding nullable values 
+    
 - 2.0.0 -- 2018-03-16
 
     - Change the Observer system 

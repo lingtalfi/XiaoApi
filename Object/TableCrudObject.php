@@ -71,16 +71,27 @@ abstract class TableCrudObject extends CrudObject
         $createData = $this->getCreateData($data);
 
         // allowing devs to put more data in data, while ensuring only relevant data are being applied
-        $data = array_intersect_key($data, $createData);
+        /**
+         * Note: array_intersect_key causes problem with nullable values, so I do it with the plain
+         * old foreach and some tricky equality statements...
+         */
+        $safeData = [];
+        foreach ($createData as $k => $v) {
+            if (array_key_exists($k, $data) && '' !== $data[$k]) { // we don't want to override potential nullable values from createData (problem found in ekom while updating a category)
+                $v = $data[$k];
+            }
+            $safeData[$k] = $v;
+        }
 
 
         // removing primary keys for free
-        $data = array_diff_key($data, array_flip($this->primaryKey));
+        $safeData = array_diff_key($safeData, array_flip($this->primaryKey));
 
 
         $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
-        QuickPdo::update($this->table, $data, $pdoWhere);
-        $this->trigger("updateAfter", $this->table, $data, $where);
+
+        QuickPdo::update($this->table, $safeData, $pdoWhere);
+        $this->trigger("updateAfter", $this->table, $safeData, $where);
     }
 
 
