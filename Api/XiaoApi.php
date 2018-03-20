@@ -25,7 +25,6 @@ class XiaoApi
     }
 
 
-
     /**
      * @return ObserverInterface
      */
@@ -91,9 +90,6 @@ class XiaoApi
     {
         if (false === array_key_exists($objectName, $this->objects)) {
             if (false !== ($inst = $this->$method($objectName))) {
-                if ($inst instanceof CrudObject) {
-                    $inst->setObserver($this->getObserver());
-                }
                 $this->objects[$objectName] = $inst;
             } else {
                 $this->error("object instance not found with object name $objectName");
