@@ -76,17 +76,21 @@ abstract class TableCrudObject extends CrudObject
          * old foreach and some tricky equality statements...
          */
         $safeData = [];
-        foreach ($createData as $k => $v) {
-            if (array_key_exists($k, $data) && '' !== $data[$k]) { // we don't want to override potential nullable values from createData (problem found in ekom while updating a category)
-                $v = $data[$k];
-            }
-            $safeData[$k] = $v;
-        }
+        foreach ($data as $k => $v) {
+            if (array_key_exists($k, $createData)) {
 
+                if (
+                    '' === $v
+                    && null === $createData[$k]
+                ) { // we don't want to override potential nullable values from createData (problem found in ekom while updating a category)
+                    $v = $createData[$k];
+                }
+                $safeData[$k] = $v;
+            }
+        }
 
         // removing primary keys for free
         $safeData = array_diff_key($safeData, array_flip($this->primaryKey));
-
 
         $pdoWhere = QuickPdoStmtTool::simpleWhereToPdoWhere($where);
 
