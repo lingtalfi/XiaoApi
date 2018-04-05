@@ -380,4 +380,34 @@ abstract class TableCrudObject extends CrudObject
         return QuickPdo::freeExec("drop table if exists " . $this->table);
     }
 
+
+    //--------------------------------------------
+    //
+    //--------------------------------------------
+    /**
+     * Helper method for a subclass which has an id primary key and wants to access it
+     * in both a createAfter or updateAfter event.
+     *
+     *
+     * SUBCLASS CODE...
+     * public function __construct()
+     * {
+     *      parent::__construct();
+     *      $this->addListener(['createAfter', "updateAfter"], function ($eventName, $table, $data, $third) {
+     *          $id = self::getIdFromCreateUpdate(func_get_args());
+     *      });
+     * }
+     */
+    protected static function getIdFromCreateUpdate($args)
+    {
+        list($eventName, $table, $data, $third) = $args;
+        $id = null;
+        if ('createAfter' === $eventName) {
+            $id = $third;
+        } else {
+            $id = $third['id'];
+        }
+        return $id;
+    }
+
 }

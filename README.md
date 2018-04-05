@@ -394,6 +394,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 2.1.0 -- 2018-04-05
+ 
+    - add TableCrudObject::getIdFromCreateUpdate internal helper method 
+    
 - 2.0.3 -- 2018-03-21
  
     - fix TableCrudObject.update method overriding nullable values (again) 
