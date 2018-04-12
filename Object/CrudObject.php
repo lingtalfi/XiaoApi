@@ -4,7 +4,6 @@
 namespace XiaoApi\Object;
 
 
-
 class CrudObject
 {
 
@@ -43,7 +42,12 @@ class CrudObject
 
     public function addListener($eventName, callable $listener)
     {
-        $this->listeners[$eventName][] = $listener;
+        if (!is_array($eventName)) {
+            $eventName = [$eventName];
+        }
+        foreach ($eventName as $evName) {
+            $this->listeners[$evName][] = $listener;
+        }
         return $this;
     }
 
