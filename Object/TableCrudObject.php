@@ -403,7 +403,11 @@ abstract class TableCrudObject extends CrudObject
         list($eventName, $table, $data, $third) = $args;
         $id = null;
         if ('createAfter' === $eventName) {
-            $id = $third;
+            if (is_array($third)) {
+                $id = $third["id"];
+            } else {
+                $id = $third;
+            }
         } else {
             $id = $third['id'];
         }
