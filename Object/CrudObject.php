@@ -4,18 +4,26 @@
 namespace XiaoApi\Object;
 
 
-use XiaoApi\Observer\Observer;
 
 class CrudObject
 {
+
+    private static $inst = [];
+    private $listeners;
+
     public function __construct()
     {
-        // I'm a crud object
+        $this->listeners = [];
     }
 
     public static function getInst()
     {
-        return new static();
+        $class = get_called_class();
+        if (false === array_key_exists($class, self::$inst)) {
+            self::$inst[$class] = new static();
+
+        }
+        return self::$inst[$class];
     }
 
 
@@ -24,13 +32,18 @@ class CrudObject
     //--------------------------------------------
     public function trigger($eventName)
     {
-        call_user_func_array([Observer::inst(), "trigger"], func_get_args());
+        $listeners = $this->listeners[$eventName] ?? [];
+        if ($listeners) {
+            foreach ($listeners as $listener) {
+                call_user_func_array($listener, func_get_args());
+            }
+        }
         return $this;
     }
 
     public function addListener($eventName, callable $listener)
     {
-        Observer::inst()->addListener($eventName, $listener);
+        $this->listeners[$eventName][] = $listener;
         return $this;
     }
 

@@ -394,6 +394,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 2.2.0 -- 2018-04-12
+ 
+    - removed Observer system
+    
 - 2.1.0 -- 2018-04-05
  
     - add TableCrudObject::getIdFromCreateUpdate internal helper method 
