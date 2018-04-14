@@ -394,8 +394,12 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
-- 2.2.2 -- 2018-04-12
+- 2.2.3 -- 2018-04-14
  
+    - enhance CrudObject add "return static" in the comments for better IDE interaction
+
+- 2.2.2 -- 2018-04-12
+
     - fix TableCrudObject.getIdFromCreateUpdate method not always returning the expected id
     
 - 2.2.1 -- 2018-04-12

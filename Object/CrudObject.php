@@ -15,6 +15,9 @@ class CrudObject
         $this->listeners = [];
     }
 
+    /**
+     * @return static
+     */
     public static function getInst()
     {
         $class = get_called_class();
