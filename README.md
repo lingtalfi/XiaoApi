@@ -394,6 +394,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
     
+- 2.2.4 -- 2018-04-16
+ 
+    - fix DbObjectGenerator not distinguishing between nullable int values and nullable string values
+    
 - 2.2.3 -- 2018-04-14
  
     - enhance CrudObject add "return static" in the comments for better IDE interaction
