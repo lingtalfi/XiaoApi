@@ -1,11 +1,11 @@
 <?php
 
 
-use BashColorTool\BashColorTool;
+use Ling\BashColorTool\BashColorTool;
 use Core\Services\A;
-use QuickPdo\QuickPdoInfoTool;
-use XiaoApi\Generator\ApiGenerator\DbApiGenerator;
-use XiaoApi\Generator\ObjectGenerator\DbObjectGenerator;
+use Ling\QuickPdo\QuickPdoInfoTool;
+use Ling\XiaoApi\Generator\ApiGenerator\DbApiGenerator;
+use Ling\XiaoApi\Generator\ObjectGenerator\DbObjectGenerator;
 
 
 //--------------------------------------------

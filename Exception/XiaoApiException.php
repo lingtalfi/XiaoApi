@@ -1,7 +1,7 @@
 <?php
 
 
-namespace XiaoApi\Exception;
+namespace Ling\XiaoApi\Exception;
 
 
 class XiaoApiException extends \Exception

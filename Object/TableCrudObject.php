@@ -1,14 +1,14 @@
 <?php
 
 
-namespace XiaoApi\Object;
+namespace Ling\XiaoApi\Object;
 
 
-use QuickPdo\QuickPdoDbOperationTool;
-use QuickPdo\QuickPdoInfoTool;
-use XiaoApi\Helper\QuickPdoStmtHelper\QuickPdoStmtHelper;
-use QuickPdo\QuickPdo;
-use QuickPdo\QuickPdoStmtTool;
+use Ling\QuickPdo\QuickPdoDbOperationTool;
+use Ling\QuickPdo\QuickPdoInfoTool;
+use Ling\XiaoApi\Helper\QuickPdoStmtHelper\QuickPdoStmtHelper;
+use Ling\QuickPdo\QuickPdo;
+use Ling\QuickPdo\QuickPdoStmtTool;
 
 
 /**

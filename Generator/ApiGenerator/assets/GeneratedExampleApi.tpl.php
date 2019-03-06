@@ -4,7 +4,7 @@
 namespace Module\Example\Api;
 
 //-uses
-use XiaoApi\Api\XiaoApi;
+use Ling\XiaoApi\Api\XiaoApi;
 
 
 /**

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace XiaoApi\Api;
+namespace Ling\XiaoApi\Api;
 
 
-use XiaoApi\Exception\XiaoApiException;
-use XiaoApi\Object\CrudObject;
-use XiaoApi\Observer\Observer;
-use XiaoApi\Observer\ObserverInterface;
+use Ling\XiaoApi\Exception\XiaoApiException;
+use Ling\XiaoApi\Object\CrudObject;
+use Ling\XiaoApi\Observer\Observer;
+use Ling\XiaoApi\Observer\ObserverInterface;
 
 class XiaoApi
 {

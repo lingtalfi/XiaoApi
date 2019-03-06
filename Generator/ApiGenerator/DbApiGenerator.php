@@ -1,13 +1,13 @@
 <?php
 
 
-namespace XiaoApi\Generator\ApiGenerator;
+namespace Ling\XiaoApi\Generator\ApiGenerator;
 
 
-use Bat\FileSystemTool;
-use QuickPdo\QuickPdoInfoTool;
-use XiaoApi\Generator\ApiGenerator\Exception\ApiGeneratorException;
-use XiaoApi\Helper\GeneralHelper\GeneralHelper;
+use Ling\Bat\FileSystemTool;
+use Ling\QuickPdo\QuickPdoInfoTool;
+use Ling\XiaoApi\Generator\ApiGenerator\Exception\ApiGeneratorException;
+use Ling\XiaoApi\Helper\GeneralHelper\GeneralHelper;
 
 
 /**

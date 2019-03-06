@@ -15,7 +15,7 @@ Install
 ==========
 Using the [uni](https://github.com/lingtalfi/universe-naive-importer) command.
 ```bash
-uni import XiaoApi
+uni import Ling/XiaoApi
 ```
 
 Or just download it and place it where you want otherwise.
@@ -68,8 +68,8 @@ Here is an example of how using them (example using the kamille framework):
 
 
 use Core\Services\A;
-use XiaoApi\Helper\ReadParams\ReadParams;
-use XiaoApi\Observer\Listener\CallbackListener;
+use Ling\XiaoApi\Helper\ReadParams\ReadParams;
+use Ling\XiaoApi\Observer\Listener\CallbackListener;
 use Module\Ekom\Api\EkomApi;
 
 
@@ -204,11 +204,11 @@ Here is the xiao script for generating both the api and the objects.
 <?php
 
 
-use BashColorTool\BashColorTool;
+use Ling\BashColorTool\BashColorTool;
 use Core\Services\A;
-use QuickPdo\QuickPdoInfoTool;
-use XiaoApi\Generator\ApiGenerator\DbApiGenerator;
-use XiaoApi\Generator\ObjectGenerator\DbObjectGenerator;
+use Ling\QuickPdo\QuickPdoInfoTool;
+use Ling\XiaoApi\Generator\ApiGenerator\DbApiGenerator;
+use Ling\XiaoApi\Generator\ObjectGenerator\DbObjectGenerator;
 
 
 //--------------------------------------------

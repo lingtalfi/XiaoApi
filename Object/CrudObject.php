@@ -1,7 +1,7 @@
 <?php
 
 
-namespace XiaoApi\Object;
+namespace Ling\XiaoApi\Object;
 
 
 class CrudObject

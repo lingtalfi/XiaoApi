@@ -1,7 +1,7 @@
 <?php
 
 
-namespace XiaoApi\Helper\ReadParams;
+namespace Ling\XiaoApi\Helper\ReadParams;
 
 
 class ReadParams

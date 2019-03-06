@@ -1,7 +1,7 @@
 <?php
 
 
-namespace XiaoApi\Helper\QuickPdoStmtHelper;
+namespace Ling\XiaoApi\Helper\QuickPdoStmtHelper;
 
 /**
  *

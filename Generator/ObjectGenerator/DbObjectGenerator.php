@@ -1,13 +1,13 @@
 <?php
 
 
-namespace XiaoApi\Generator\ObjectGenerator;
+namespace Ling\XiaoApi\Generator\ObjectGenerator;
 
-use ArrayToString\ArrayToStringTool;
-use Bat\FileSystemTool;
-use QuickPdo\QuickPdoInfoTool;
-use XiaoApi\Generator\ObjectGenerator\Exception\ObjectGeneratorException;
-use XiaoApi\Helper\GeneralHelper\GeneralHelper;
+use Ling\ArrayToString\ArrayToStringTool;
+use Ling\Bat\FileSystemTool;
+use Ling\QuickPdo\QuickPdoInfoTool;
+use Ling\XiaoApi\Generator\ObjectGenerator\Exception\ObjectGeneratorException;
+use Ling\XiaoApi\Helper\GeneralHelper\GeneralHelper;
 
 class DbObjectGenerator
 {

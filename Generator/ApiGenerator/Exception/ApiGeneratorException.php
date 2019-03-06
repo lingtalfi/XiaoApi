@@ -1,7 +1,7 @@
 <?php
 
 
-namespace XiaoApi\Generator\ApiGenerator\Exception;
+namespace Ling\XiaoApi\Generator\ApiGenerator\Exception;
 
 
 class ApiGeneratorException extends \Exception

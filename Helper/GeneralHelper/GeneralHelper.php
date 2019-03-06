@@ -1,7 +1,7 @@
 <?php
 
 
-namespace XiaoApi\Helper\GeneralHelper;
+namespace Ling\XiaoApi\Helper\GeneralHelper;
 
 
 class GeneralHelper
