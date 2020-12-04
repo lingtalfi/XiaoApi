@@ -393,7 +393,11 @@ and the generators will never delete or even touch them.
 
 History Log
 ------------------
-    
+
+- 2.2.5 -- 2020-12-04
+
+    - Add lpi-deps.byml file
+
 - 2.2.4 -- 2018-04-16
  
     - fix DbObjectGenerator not distinguishing between nullable int values and nullable string values
