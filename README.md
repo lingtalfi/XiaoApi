@@ -394,6 +394,10 @@ and the generators will never delete or even touch them.
 History Log
 ------------------
 
+- 2.2.6 -- 2020-12-08
+
+    - Fix lpi-deps not using natsort.
+
 - 2.2.5 -- 2020-12-04
 
     - Add lpi-deps.byml file
